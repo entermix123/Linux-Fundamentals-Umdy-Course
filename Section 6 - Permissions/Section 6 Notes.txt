@@ -1,0 +1,33 @@
+Section 6 - Permissions
+Section 6 22 Introduction to permissions in Linux
+Section 6 23 Difference between UID, GID and Shadow
+Section 6 24 File and Dir Permissions
+Section 6 25 Examples with File Permissions
+Section 6 26 Understanding LINUX Permissions
+Section 6 27 Chmod
+
+
+
+=================================================
+Section 6 22 Introduction to permissions in Linux
+=================================================
+
+===================================================
+Section 6 23 Difference between UID, GID and Shadow
+===================================================
+
+=====================================
+Section 6 24 File and Dir Permissions
+=====================================
+
+===========================================
+Section 6 25 Examples with File Permissions
+===========================================
+
+============================================
+Section 6 26 Understanding LINUX Permissions
+============================================
+
+==================
+Section 6 27 Chmod
+==================

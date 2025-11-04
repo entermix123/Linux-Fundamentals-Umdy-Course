@@ -1,0 +1,22 @@
+Section 5 - Starting with Linux Shell
+Section 5 18 Introduction to Shell and Expansion
+Section 5 19 Arithmetic expressions with Shell
+Section 5 20 Automating folder creation with Shell
+Section 5 21 Quoting in Shell
+
+
+================================================
+Section 5 18 Introduction to Shell and Expansion
+================================================
+
+==============================================
+Section 5 19 Arithmetic expressions with Shell
+==============================================
+
+==================================================
+Section 5 20 Automating folder creation with Shell
+==================================================
+
+=============================
+Section 5 21 Quoting in Shell
+=============================

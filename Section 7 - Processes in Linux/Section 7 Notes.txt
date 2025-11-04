@@ -1,0 +1,35 @@
+Section 7 - Processes in Linux
+Section 7 28 Fundamentals of Processes in Systems
+Section 7 29 The Magic with PS Aux Command
+Section 7 30 The Magic with TOP Command
+Section 7 31 Foreground and Background Processes
+Section 7 32 From Background to Foreground
+Section 7 33 The Tutorial with Linux Process Sugnals
+
+
+
+
+=================================================
+Section 7 28 Fundamentals of Processes in Systems
+=================================================
+
+==========================================
+Section 7 29 The Magic with PS Aux Command
+==========================================
+
+=======================================
+Section 7 30 The Magic with TOP Command
+=======================================
+
+================================================
+Section 7 31 Foreground and Background Processes
+================================================
+
+==========================================
+Section 7 32 From Background to Foreground
+==========================================
+
+====================================================
+Section 7 33 The Tutorial with Linux Process Sugnals
+====================================================
+

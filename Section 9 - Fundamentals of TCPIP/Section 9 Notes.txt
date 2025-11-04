@@ -1,0 +1,32 @@
+Section 9 - Fundamentals of TCP/IP
+Section 9 37 What is network protocol and what it does
+Section 9 38 Layers of TCP/IP Model
+Section 9 39 How emails sent and received over internet
+Section 9 40 PDU Explained
+Section 9 41 Basic Use of Switch and Data Transmission
+Section 9 42 Networks Talking to Router in Middle
+
+
+======================================================
+Section 9 37 What is network protocol and what it does
+======================================================
+
+===================================
+Section 9 38 Layers of TCP/IP Model
+===================================
+
+=======================================================
+Section 9 39 How emails sent and received over internet
+=======================================================
+
+==========================
+Section 9 40 PDU Explained
+==========================
+
+======================================================
+Section 9 41 Basic Use of Switch and Data Transmission
+======================================================
+
+=================================================
+Section 9 42 Networks Talking to Router in Middle
+=================================================

@@ -1,0 +1,18 @@
+Section 8 - Packet Management Systems in Linux
+Section 8 34 Introduction to Package Management Systems
+Section 8 35 Why we need Package Management Tools
+Section 8 36 Package Management in Linux - Final
+
+
+=======================================================
+Section 8 34 Introduction to Package Management Systems
+=======================================================
+
+=================================================
+Section 8 35 Why we need Package Management Tools
+=================================================
+
+================================================
+Section 8 36 Package Management in Linux - Final
+================================================
+
