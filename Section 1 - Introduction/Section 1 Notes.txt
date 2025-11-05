@@ -11,18 +11,121 @@ Section 1 5 Different Linux commands used with Pipe
 Section 1 1 Understanding Linux Commands and Pipelines
 ======================================================
 
+Common Linux commands:
+stdin - standart input - linux read from keyboard
+stdout - standart output - linux write to the display
+
+less myfile - print a screen full of the file content
+
+ls -l /bin | less  - print screen full of the result of the first command - list the content of the /bin folder
+
+
 ===========================
 Section 1 2 What is Command
 ===========================
+
+Command is a executable program: ls, cd, cat, etc.
+
+Simple command: ls -l /home
+
+
+		    simple	simple
+		  ___________   ____
+	  	 |	     | |    |
+Combined Command: ls -l /home | less
+		 |		    |
+ 		 --------------------
+		       combined
+
+- we have 2 simple commands combined in one line
+
 
 ================================
 Section 1 3 Pipelines Examples 1
 ================================
 
+COMMAND:			DESCRIPTION:
+man				Show detailed description of other command - terminal --> man ls
+
+wc				wc myfile - give us info about myfile - number of lines, number of words and number of characters
+	wc -l myfile 		print the nuber of lines in the file
+	wc -c myfile 		print the number of characters in myfile
+	wc -w myfile		print the number of workds in myfile
+
+
+EXAMPLES
+--------
+
+We have myfile file with 5 lines 4 words and 23 characters on each line
+--------------------------
+line 1 with information
+line 2 with information
+line 3 with information
+line 4 with information
+line 5 with information
+line 6 with information
+--------------------------
+terminal --> wc myfile
+	result: 6 24 115 myfile		- 6 lines, 24 words, 115 characters, filename
+
+We can use one simple command more than once in one line:
+---------------------------------------------------------
+terminal --> wc myfile | wc -w
+	result: 4	- the second command wokrs with the result of the first command and we have 4 words (6 24 115 myfile)
+
+
+head				print the content of the top number lines of the file
+cut
+grep
+sort
+unique
+ls
+
+
 ==============================
 Section 1 4 Strange LS Command
 ==============================
 
+terminal --> ls 	- show the current folder content
+
+terminal --> ls |wc -l	- this command count the lines of the content of the current directory. Even if the content is shown as one line, the result is count as separate lines.
+
+terminal --> ls -1 	- show current folder content as each line is on a new row
+
+terminal --> lc -C	- show the content of the current folder as one line
+
+terminal --> ls -C | wc -l	- count the line (result: 2)
+
+
 ===================================================
 Section 1 5 Different Linux commands used with Pipe
 ===================================================
+
+terimnal --> head -n4 myfile	- print the first 4 lines from myfile
+
+terminal --> ls /bin | head -n15	- print the first 15 lines from the content in the /bin folder
+
+terminal --> cut -f2 myfile	- print first 2 words/columns of each line in myfile
+
+terminal --> grep some_word myfile	- print all words in myfile that contains/match some_word in it
+
+terminal --> grep -v some_word myfile	- print all words in myfile that NOT contains/match (exclude) some_word in ti
+
+terminal --> sort myfile 	- print myfile in ascending order - sorted
+
+terminal --> sort -r myfile 	- print myfile in descending order - sorted
+
+terminal --> sort -n myfile	- print myfile content in ascending order
+
+terminal --> sort -nr myfile	- print myfile content in descending order
+
+terminal --> cut -f3 myfile | sort -n	- print the first 3 collumns of every line in ascending order
+
+terminal --> cut -f3 myfile | sort -nr	- print the first 3 collumns of every line in descending order
+
+terminal --> uniq myfile - print only unique content in myfile - print the first unique value of the sqeuence. If we have more duplicates after different values it prints them!
+
+
+
+
+
