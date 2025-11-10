@@ -1,2 +1,17 @@
 Section 3 - Starting with Linux Shell
 Section 3 10 The bridge between You and Shell 
+
+
+=============================================
+Section 3 10 The bridge between You and Shell 
+=============================================
+
+
+shell - user interfece - sits between us and linux OS
+
+bash shell - type of shell - most used
+
+the operator * is handled by the shell
+
+List all .txt files:
+	terminal --> ls *.txt
