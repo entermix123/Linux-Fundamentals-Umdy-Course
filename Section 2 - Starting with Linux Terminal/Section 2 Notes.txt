@@ -9,14 +9,90 @@ Section 2 9 Linux Directories 2
 Section 2 6 Understanding Key Concepts
 ======================================
 
+List of all system usesrs accounts
+	terminal --> cat /etc/passwd
+
+Example:
+
+   1     2   3    4     5            6          7
+username:x:1000:1000:username,,,:/home/kali:/usr/bin/zsh
+
+7 - user's shell program
+
 ===================================
 Section 2 7 Finding Helpful Manuals
 ===================================
+
+manual for different commands
+	terminal --> man <command>
+
+Examples:
+
+Show ls manual
+	terminal --> man ls
+
+Quit ls manual
+	terminal --> q
+
+Show cat manual
+	terminal --> man cat
+
+Exit cat manual
+	terminal --> q
+
 
 ===============================
 Section 2 8 Linux Directories 1
 ===============================
 
+						       	       root
+								/
+	-----------------------------------------------------------------------------------------------------------------
+	|	|	|	|	|	|	|	|	|	|	|	|	|	|	|
+        /bin/	|	/boot/	|	/dev/	|	/etc/	|	/home/	|	/lib/	|	/media/	|	/mnt/
+		/opt/		/root/ 		/sbin/		/srv/		/tmp/		/usr/		/var/
+												 |		 |
+						_________________________________________________|		 |
+						|								 |
+				---------------------------------			-----------------------------------
+				|	|		|	|			|		|	|	  |
+				/bin/	/include/	/lib/	/sbin/		     /cache/	      /log/  /spool/    /tmp/
+
+
+
 ===============================
 Section 2 9 Linux Directories 2
 ===============================
+
+
+/root/bin/ - user level utilities
+
+/root/boot/ - boot files 
+
+/root/dev/ - device notes directory
+
+/root/lib/ - system and application files 
+
+/root/media/ - media files 
+
+/root/nmt/ - mount directory - temporary mount files systems
+
+/root/opt/ - optional directory - third parthy software packages are stored
+
+/root/proc/ - process directory - current carnel system and process information are stored
+
+/root/root/ - root user directory - optional
+
+/root/sbin/ - system binary directory - main admin level utilities are stored
+
+/root/srv/ - local service directory - services store their files
+
+/root/sys/ - system directory - device drivers
+
+/root/tmp/ - temporary files are stored
+
+/root/usr/ - users directory
+
+/root/var/ - variable directory - log files
+
+
