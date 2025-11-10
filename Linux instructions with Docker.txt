@@ -1,0 +1,8 @@
+Start Ubuntu Linux with Docker on Windows
+1. Register on Docker.com, download and install Docker
+2. Start Ubuntu container
+	terminal --> docker run -dit --name mylinux -p 2222:22 ubuntu
+3. Access Ubuntu Linux
+	terminal --> docker exec -it mylinux bash
+3. Exit Linux and stop the container
+	terminal --> docker stop mylinux
