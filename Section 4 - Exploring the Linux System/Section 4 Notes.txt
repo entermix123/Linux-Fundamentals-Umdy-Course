@@ -12,21 +12,136 @@ Section 4 17 Manipulating files
 Section 4 11 LS command
 =======================
 
+ls - list content
+
 ======================
 Section 4 12 RD vs APD
 ======================
+
+RD - Relative Directory
+APD - Apsolute Path Directory
+
+cd - change directory
+
+Move to specific directory
+	terminal --> cd <destination>
+
+Go to /root/home directory
+	terminal --> cd
+
+Got to Linux root directory
+	terminal --> cd /
+
+Show current directory
+	terminal --> pwd
+
+We can list subdirectories as
+	terminal --> cd /usr/ + Tab
+
+Show present working directory (pwd)
+	terminal --> pwd
+
+
 
 =========================
 Section 4 13 Filtering LS
 =========================
 
+Go to home directory
+	terminal --> cd
+
+Check the current directory
+	terminal --> pwd
+
+Create files in the current directory
+	terminal --> touch myfile1 myfile2 myfile3
+
+Create files with different names
+	terminal --> touch fall fell full fill
+
+Confirm file creation
+	terminal --> ls
+
+Show information about myfile1
+	terminal --> ls -l myfile1
+
+	result: -rw-r--r-- 1 root root 0 Nov 11 13:21 myfile1
+
+List all directory content and its details
+	terminal --> ls -la
+
+Filter all files starting with 'f' and ending with 'll' with the '?' operator
+	terminal --> ls -l f?ll
+result:
+-rw-r--r-- 1 root root 0 Nov 11 13:22 fall
+-rw-r--r-- 1 root root 0 Nov 11 13:22 fell
+-rw-r--r-- 1 root root 0 Nov 11 13:22 fill
+-rw-r--r-- 1 root root 0 Nov 11 13:22 full
+
+Filter all files contains 'my' in its name with '*' operator
+	terminal --> ls -l my*
+result:
+-rw-r--r-- 1 root root 0 Nov 11 13:21 myfile1
+-rw-r--r-- 1 root root 0 Nov 11 13:21 myfile2
+-rw-r--r-- 1 root root 0 Nov 11 13:21 myfile3
+
+
+
 =======================
 Section 4 14 CP command
 =======================
 
+Navigate to home directory
+	terminal --> cd
+
+Create a test file
+	terminal --> touch test1
+
+Confirm file creation
+	terminal --> ls -la
+
+Edit the file and add content
+	terminal --> vi test1
+
+test1
+------------------------------------
+some content
+------------------------------------
+save file - escape, :wq!, enter
+
+Confirm content in the file
+	termianl --> cat test1
+
+Copy the file in different filename
+	terminal --> cp <source name> <destination name>
+
+	terminal --> cp test1 test2
+
+Confirm creation of the second file and its content
+	terminal --> cat test2
+
+We can overwrite some file with '-i' parameter
+	terminal --> cp -i test1 myfile1
+confirm the overwrite
+	terminal --> y
+
+Confirm the content of myfile1
+	terminal --> cat myfile1
+result:
+------------------------------------
+some content
+------------------------------------
+
+
 ================================
 Section 4 15 Tab Auto-completion
 ================================
+
+We can set autocomplete.
+When we write command we can press tab and list the directory content.
+
+Example:
+	terminal --> 
 
 ===================================
 Section 4 16 SYM AND HRD Link Files

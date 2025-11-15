@@ -4,5 +4,24 @@ Start Ubuntu Linux with Docker on Windows
 	terminal --> docker run -dit --name mylinux -p 2222:22 ubuntu
 3. Access Ubuntu Linux
 	terminal --> docker exec -it mylinux bash
-3. Exit Linux and stop the container
+3. Update and upgrade apt (package manager)
+	terminal --> apt update && apt upgrade
+4. Sintall sudo
+	terminal --> apt install sudo
+5. Update package manager again
+	terminal --> apt update
+6. install vim
+	terminal --> apt install vim
+
+7. Install bash autocomplete
+	terminal --> apt update
+	terminal --> apt install bash-completion
+	7.1. Enable autocomplete in the current session
+		terminal --> source /etc/profile.d/bash_completion.sh
+	7.2. Enable autocomplete permanent
+		terminal --> [[ $PS1 && -f /usr/share/bash-completion/bash_completion ]] && . /usr/share/bash-completion/bash_completion
+	7.3. Reload bash source or restart terminal 
+		terminal --> source ~/.bashrc
+
+8. Exit Linux and stop the container
 	terminal --> docker stop mylinux
