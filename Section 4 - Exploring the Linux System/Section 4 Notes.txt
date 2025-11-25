@@ -140,14 +140,138 @@ Section 4 15 Tab Auto-completion
 We can set autocomplete.
 When we write command we can press tab and list the directory content.
 
-Example:
-	terminal --> 
+We can start writing filename or directory name and press TAB to list or suggest all names containing this characters.
+
+This can prevent typo mistakes and speed up our work.
+
 
 ===================================
 Section 4 16 SYM AND HRD Link Files
 ===================================
 
+Two types of links - Synbolic and Hard links
+
+Symbolic Links points to the address of the content. If the source file is deleted, the simbolic file is also deleted.
+
+Hard Link is a another copy of the source constent. If the source content is deleted the hard link content is still available.
+
+Create soft (symbolic) link of a file
+-------------------------------------
+	terminal --> ln -s source_file_name soft_linked_file_name
+
+After we list files in the current directory, we can see 'arrow' sign after the linked_file_name to the source file_name
+	terminal --> ls -l
+
+	# simbolic linked file are only pointers and do not contain the same content as the source_file so it is smaller.
+
+Every file have unique identification number. If we look the identification number of the symbolic (soft) linked file, it is different from the one of the source file.
+	
+Print the indentification file of the source file
+	termimnal --> ls -i *source_file_name
+
+Print the indentification file of the soft linked file
+	terminal --> ls -i *soft_linked_file_name
+
+# The numbers are different
+
+
+Create a hard linked file
+-------------------------
+	terminal --> ln source_file_name hard_linked_file_name
+
+Now when we list the files in the current dicrectory we can see that hard_linked_file_name is different file and do not have 'arrow' sign pointing at the source file.
+
+List files
+	terminal --> ls -l
+
+List details of the hard linked file
+	terminal --> ls -li hard_linked_file_name
+
+When we look over the identification numbers of a hard linked file and source file they are the same.
+
+Show identification number of the source file
+	terminal --> ls -li ^source_file_name
+
+Show identification number of the hard linked file
+	terminal --> ls -li *hard_linked_file_name
+
+# The numbers are the same. This mean that they are the same file but with the different name. If one of the files is deleted, the address of the memomry is still ocupied. If the last hard link of this memory address is deleted, then the nenory is freed and the content is no longer available.
+
+When we use 'cp' command to copy a file the system is making a hard copy of the source file. This commands (ln and cp) are doing the same think - hard link. 
+
+
 ===============================
 Section 4 17 Manipulating files
 ===============================
+
+Go to home directory
+	terminal --> cd
+
+mkdir - create a directory
+
+Create few directories
+	terminal --> mkdir demo_dir_1 demo_dir_2 demo_dir_3 myspecialdir
+
+Confirm directory creation
+	terminal --> ls -la
+
+From the previous lections we have created some files. 
+
+Copy one of the files in the demo_dir_1 directory.
+	terminal --> cp fill demo_dir_1
+
+Print the copied file in the demo_dir_1 directory
+	terminal --> cat demo_dir_1/fill
+
+We can print he 'cp' commnad manual 
+	terminal --> cp man
+
+
+
+
+Moving and renaming files in Linux is made with command 'mv'.
+-------------------------------------------------------------
+
+Rename fill file to renamedfile
+	terminal --> mv fill renamedfile
+
+Confirm file is renamed
+	terminal --> ls -la 
+
+Print the renamed file content
+	terminal --> cat renamedfile
+
+# the content is the same as the original fill file
+
+
+
+
+Removing/Deleting files with 'rm' command.
+------------------------------------------
+
+Create randomfile
+	terminal --> touch randomfile
+
+Confirm file creation
+	terminal --> ls -la
+
+Delete the randomfile file
+	terminal --> rm randomfile
+
+Confirm file deletion
+	terminal --> ls -la
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
