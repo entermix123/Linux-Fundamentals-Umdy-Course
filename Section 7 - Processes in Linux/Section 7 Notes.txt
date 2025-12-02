@@ -4,32 +4,310 @@ Section 7 29 The Magic with PS Aux Command
 Section 7 30 The Magic with TOP Command
 Section 7 31 Foreground and Background Processes
 Section 7 32 From Background to Foreground
-Section 7 33 The Tutorial with Linux Process Sugnals
-
-
+Section 7 33 The Tutorial with Linux Process Signals
 
 
 =================================================
 Section 7 28 Fundamentals of Processes in Systems
 =================================================
 
+In this section we will learn about commands
+	- ps aux - full list of all processes with user details. 
+	- top	- real-time, interactive view of system processes, showing CPU/memory usage. Run top and press 'q' to quit.
+	- jobs - Lists all jobs running in the background or suspended in the current shell session. Use jobs -l for process IDs.
+	- bg - Resumes a suspended job in the background, allowing it to run without foreground control. E.g., bg %1 for job 1.
+	- fg - Brings a background or suspended job to the foreground for interactive control. E.g., fg %1 for job 1.
+	- kill - Terminates a process by its PID (process ID). E.g., kill 1234 to stop process 1234; use kill -9 1234 for forceful kill.
+	- shutdown - shut down the computer
+
+When the system starts up, the karnel starts it starts a processes and program called 'init'. All host-related scripts are in /etc folder.
+
+
 ==========================================
 Section 7 29 The Magic with PS Aux Command
 ==========================================
+
+Show all processes details
+	terminal --> ps x
+
+result:
+  PID TTY      STAT   TIME COMMAND
+    1 pts/0    Ss+    0:00 /bin/bash
+    9 pts/1    Ss     0:00 bash
+   30 pts/1    R+     0:00 ps x
+
+Under STAT (status) we can see different symbols with their meaning as follow:
+
+R --> Running
+S --> Sleeping (waiting for an event like key stroke or network packet)
+D --> Uninterruptable sleep (waiting for input output)
+T --> Stopped (instructed to stop)
+Z --> Zombie process - terminated but not cleaned by its parent
+< --> High Priority Process - take more time on CPU (less nice)
+N --> Low Priority Process - take less time on CPU (more nice)
+
+Show all processes with 'aux' option
+	terminal --> ps aux
+
+result:
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.0   4588  3804 pts/0    Ss+  10:46   0:00 /bin/bash
+root         9  0.0  0.0   4588  3920 pts/1    Ss   10:46   0:00 bash
+root        31  0.0  0.0   7888  3900 pts/1    R+   14:42   0:00 ps aux
+
+
+RSS - Resident Set Size 
+	- It represents the non-swapped physical memory (RAM) currently used by the process, measured in kilobytes (KB). This includes the code, data, and stack segments but excludes any pages swapped to disk. It's a key metric for assessing a process's real memory footprint on the system.
+
+VSZ - Virtual Memory Size
+
+START - Start time in hours 
+
 
 =======================================
 Section 7 30 The Magic with TOP Command
 =======================================
 
+To see dynamic process information we can use "top" command.
+
+Show contiuous process information updated every 3 seconds.
+	terminal --> top
+
+result:
+----------------------------------------------------------------------------------
+top - 14:57:06 up  4:10,  0 user,  load average: 0.00, 0.00, 0.00
+Tasks:   3 total,   1 running,   2 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+MiB Mem :  15917.2 total,  14610.6 free,    820.8 used,    751.6 buff/cache
+MiB Swap:   4096.0 total,   4096.0 free,      0.0 used.  15096.4 avail Mem
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+    1 root      20   0    4588   3804   3316 S   0.0   0.0   0:00.04 bash
+    9 root      20   0    4588   3920   3312 S   0.0   0.0   0:00.05 bash
+   32 root      20   0    8844   5100   3012 R   0.0   0.0   0:00.00 top
+----------------------------------------------------------------------------------
+
+
+
+
+Result description Part 1:
+--------------------------
+
+top - 14:57:06				# time of the command
+up  4:10				# what time the system is running
+0 user					# current users
+load average: 0.00, 0.00, 0.00		# first value is 60 seconds average, then 5 minutes average, then 15 minutes average
+
+Tasks:   3 total			# number of tasks/processes
+1 running				# number of running tasks/processes
+2 sleeping				# number of sleeping tasks/processes
+0 stopped				# number of stopped tasks/processes
+0 zombie				# number of zombie tasks/processes
+
+%Cpu(s):  
+0.0 us			# used cpu
+0.0 sy			# used by kernal - system
+0.0 ni			# used by nice processes - low priority processes
+100.0 id		# cpu in idle mode (free cpu)
+0.0 wa			# waiting CPU for input/output
+
+
+MiB Mem :
+  15917.2 total		# how much RAM is available to the system
+  14610.6 free		# free RAM
+  820.8 used		# used RAM
+  751.6 buff/cache	# cache
+
+
+MiB Swap:		# Virtual Memory
+   4096.0 total		# Total vrtual Memory
+   4096.0 free		# Free VM
+      0.0 used		# Used VM
+  15096.4 avail Mem	# available VM
+
+
+
+Result description Part 2:
+--------------------------
+
+  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+    1 root      20   0    4588   3804   3316 S   0.0   0.0   0:00.04 bash
+    9 root      20   0    4588   3920   3312 S   0.0   0.0   0:00.05 bash
+   32 root      20   0    8844   5100   3012 R   0.0   0.0   0:00.00 top
+
+We can press "h" for detailed description/help (under "top" process) and "q" to quit the help.
+
+The command "top" is like process manager in Windows
+
+
 ================================================
 Section 7 31 Foreground and Background Processes
 ================================================
+
+Update apt package manager
+	terminal --> apt update
+
+List all installed packages
+	terminal --> apt list --installed
+
+Install htop - app for process monitoring
+	terminal --> apt update && apt install htop
+
+Install stress - app for dummy processes
+	terminal --> apt update && apt install stress
+
+Start stress process for 5 minutes (300 seconds) in the background ("&" make the process detached - background)
+	terminal --> stress --cpu 1 --timeout 300 &
+
+	# result: [1] 9174		# job control - process id - 9174
+
+List jobs
+	terminal --> jobs
+
+	# result: [1]+  Running                 stress --cpu 1 --timeout 300 &
+
+We can enter the process with command "fg"
+	terminal --> fg %1				# %1 is teh number of the job
+
+We can terminate the process with Ctrl+C
+
 
 ==========================================
 Section 7 32 From Background to Foreground
 ==========================================
 
+We can stop a process without terminating it.
+
+For working with Docker container
+---------------------------------
+Install screen
+	terminal --> apt update && apt install screen
+
+Start screen session
+	terminal --> screen -S stress
+
+Start stress process for 5 minutes (300 seconds) in the background ("&" make the process detached - background)
+	terminal --> stress --cpu 1 --timeout 300 &
+
+	# result: [1] 9174		# job control - process id - 9174
+
+List jobs
+	terminal --> jobs
+
+	# result: [1]+  Running                 stress --cpu 1 --timeout 300 &
+
+Exit the screen and return to the container terminal
+	terminal --> Ctrl+A
+	terminal --> D
+
+List the processes
+	terminal --> ps aux
+
+Enter the screen with the started process again
+	terminal --> screen -r stress
+
+
+
+For common Linux system (not container)
+---------------------------------------
+
+Start stress process for 5 minutes (300 seconds) in the background ("&" make the process detached - background)
+	terminal --> stress --cpu 1 --timeout 300 &
+
+	# result: [1] 9174		# job control - process id - 9174
+
+List jobs
+	terminal --> jobs
+
+	# result: [1]+  Running                 stress --cpu 1 --timeout 300 &
+
+Set the process to foreground
+	terminal --> fg %1
+
+Move frontground process to background
+	terminal --> bg %1			# it won't work in container, we can kill the process with Ctrl+C
+	or
+	terminal --> Ctrl+Z
+
+
+
 ====================================================
-Section 7 33 The Tutorial with Linux Process Sugnals
+Section 7 33 The Tutorial with Linux Process Signals
 ====================================================
+
+List of commands we can kill processes
+	terminal --> kill -l
+
+Start a stress process
+	terminal --> stress --cpu 1 --timeout 300 &
+
+	# result: [1] 9590
+
+List processes and their PIDs
+	terminal --> ps aux
+
+	# we can find PID of the stress process - 9590
+
+Terminate the process
+	terminal --> kill 9590
+	or
+	terminal --> kill %1
+
+List jobs
+	terminal --> jobs
+	
+	# result: [1]+  Terminated              stress --cpu 1 --timeout 300
+
+
+When we use terminal --> kill <PID>, we send TERM signal to the system by default.  
+
+When we add '-signal' to the command and specify the signal name, we can perform specific actions.
+
+We can call a signal by name or by ID --> 1 - Kill, 2 - INT, etc.
+
+Most used and popular signals:
+------------------------------
+1  => HUP  ->  Hang Up
+2  => INT  ->  Interrupt (Same as CTRL-C)
+3  => QUIT ->  Just simple quit
+9  => KILL ->  Kill without notifying the program, Contacts directly with kernel
+11 => SEGV ->  Segmentation Violation 
+15 => TERM ->  Default signal sent by kill command.
+18 => CONT ->  Continue | Restore process after a STOP or TSTP signal (sent by BG and FG)
+19 => STOP ->  Pause without terminating. (program cannot ignore this)
+20 => TSTP ->  Terminal Stop. CTRL-Z is pressed. (can be ignorable)
+28 => WINCH->  Window change 
+
+
+
+Start a stress process
+	terminal --> stress --cpu 1 --timeout 300 &
+
+	# result: [1] 9598
+
+Kill the process with HUP signal command
+	terminal --> kill -1 9598
+	or
+	terminal --> kill -1 %1
+	
+List jobs
+	terminal --> jobs
+	
+	# result: [1]+  Hangup                  stress --cpu 1 --timeout 300
+
+
+We must be the owner of the process or admin user to perfoem actions.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
