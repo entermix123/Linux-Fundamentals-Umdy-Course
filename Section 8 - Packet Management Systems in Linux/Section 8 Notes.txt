@@ -8,11 +8,55 @@ Section 8 36 Package Management in Linux - Final
 Section 8 34 Introduction to Package Management Systems
 =======================================================
 
+PMS - package manager system
+
+Most used on Ubuntu based systems is "dpkg"
+Most used on Fedora based systems is "rpm"
+
+
 =================================================
 Section 8 35 Why we need Package Management Tools
 =================================================
 
+We can download and install packages from repositories. In the package files we can find several installation scripts for the different systems.
+
+Different programs depends on smaller programs to work with them. This mini programs are called dependancies. There 2 type of tools - low level and high level tools.
+
+
 ================================================
 Section 8 36 Package Management in Linux - Final
 ================================================
+
+On Debian based systems we will use "apt" package manager.
+
+Uninstall packages:
+	terminal --> apt-get remove <package_name>
+
+We can also use dpkg, but use the file and not the name of the package
+	terminal --> dpkg -i <package_file>
+
+In RedHat we use "rpm" package manager with file again
+	terminal --> rpm -i <package_file>
+
+
+List packages for Debian based systems
+	terminal --> dpkg -l
+
+List packages for RedHat
+	terminal --> rpm -qa
+
+Check if specific package is present on Debian based system
+	terminal --> dpkg -s <package_name>
+
+Show where a specific package is installed for Debian based system
+	terminal --> dpkg -S <package_name>
+
+Show where a specific package is installed for RedHat based system
+	terminal --> rpm -qf <package_name>
+
+
+
+
+
+
 
