@@ -12,22 +12,314 @@ Section 6 27 Chmod
 Section 6 22 Introduction to permissions in Linux
 =================================================
 
+SSH --> Secure Shell
+
+More than one user can operate on Linux system. However they cannot access files that are owned by other users.
+
+Commands we are going to learn for
+
+	- id		# user identifier
+	- chmod 	# change file/folder permissions
+	- umask		# change default file permission
+	- sudo		# execute cimmand as another user
+	- su		# run shell as another user
+	- chown		# change file/folder woner
+	- chgrp		# change file/folder group permissions
+	- passwd	# change user password
+
+
 ===================================================
 Section 6 23 Difference between UID, GID and Shadow
 ===================================================
+
+Set permissions
+---------------
+
+Show current user permissions
+	terminal --> id
+
+uid --> user id
+gid --> group id
+
+Groups are defined in "/etc/group"
+Users's passwords are defined in "/etc/passwd" - must match passwords info in "/etc/shadow"
+"/etc/shadow" - stores hashed password data and related security information for user accounts on the system. Readable and writable only by root user.
+
 
 =====================================
 Section 6 24 File and Dir Permissions
 =====================================
 
+List all directories and files
+	terminal --> ls -l
+
+# result:
+total 36
+drwxr-xr-x  2 root root 4096 Nov 25 16:21  demo_dir_1
+drwxr-xr-x  2 root root 4096 Nov 25 16:16  demo_dir_2
+drwxr-xr-x  2 root root 4096 Nov 25 16:16  demo_dir_3
+-rw-r--r--  1 root root    0 Nov 11 15:22  fall
+-rw-r--r--  1 root root    0 Nov 11 15:22  fell
+-rw-r--r--  1 root root    0 Nov 11 15:22  full
+-rw-r--r--  1 root root    0 Nov 29 12:12 'my file1.txt'
+-rw-r--r--  1 root root   13 Nov 11 16:13  myfile1
+-rw-r--r--  1 root root    0 Nov 11 15:21  myfile2
+-rw-r--r--  1 root root    0 Nov 11 15:21  myfile3
+drwxr-xr-x  2 root root 4096 Nov 25 16:16  myspecialdir
+drwxr-xr-x 74 root root 4096 Nov 25 17:17  photos
+-rw-r--r--  1 root root   66 Nov 25 16:20  renamedfile
+-rw-r--r--  1 root root   13 Nov 11 16:02  test1
+-rw-r--r--  1 root root   13 Nov 11 16:03  test2
+
+
+Legend:
+=======
+The starting symbol of each entity is specific file type as one of the following:
+
+"-" --> regular file
+"d" --> directory
+"l" --> symbolic links (soft link)
+"c" --> Char special file - device that handles data as a stream of bites (terminal)
+"b" --> block special file - hard drives
+
+
+The next character in the first column:
+
+example: drwxr-xr-x
+
+d --> directory
+
+rwxr-xr-x --> file modes (permission attributes) - read, write and execute permissions
+
+ 1		 2		 3
+rwx		r-x		r-x
+ |		|		|
+ V		V		V
+owner		group		all users
+permissions	permissions	permissions
+
+
+1: rwx 
+------
+r --> read
+w --> write
+x --> execute
+
+- owner can read, write and execute directory/file. Can list directory content if execute permission is set (x)
+- allow the owner to edit, rename, truncate or delete the file. For directories - all files in the directory can edited, deleted and renamed.
+- x permission is set to a file and allows to be treated as program (script). For directory - allow the directory to be accessed.
+
+
 ===========================================
 Section 6 25 Examples with File Permissions
 ===========================================
+
+A4.txt
+---------------------------------------------------------
+Permissions	Binary	Octal	Description
+- - -		000	0	No permissions
+- - x		001	1	Execute-only permission
+- w -		010	2	Write-only permission
+- w x		011	3	Write and execute permission
+r - - 		100	4	Read-only permission
+r - x 		101	5	Read and execute permission
+r w -		110	6	Read and write permission
+r w x		111	7	Read, write and execute permission
+
+rw- r-- r-- MASK (022) ->	110 100 100   -> 	644
+rw- r-- --- MASK (026) -> 	110 100 000   -> 	640
+FULL PERMISSION -> 777
+STARTS WITH (FILE)      -> 666
+STARTS WITH (DIRECTORY) -> 777
+
+Examples with directories 
+rwx r-x --x MASK (026) -> 111 101 001 -> 751
+
+666			777	
+022			026
+-> 644			-> 751
+---------------------------------------------------------
 
 ============================================
 Section 6 26 Understanding LINUX Permissions
 ============================================
 
+A5.txt
+---------------------------------------------------------
+Permissions	Binary	Octal	Description
+- - -		000	0	No permissions
+- - x		001	1	Execute-only permission
+- w -		010	2	Write-only permission
+- w x		011	3	Write and execute permission
+r - - 		100	4	Read-only permission
+r - x 		101	5	Read and execute permission
+r w -		110	6	Read and write permission
+r w x		111	7	Read, write and execute permission
+
+rw- r-- r-- MASK (022) ->	110 100 100   -> 	644
+rw- r-- --- MASK (026) -> 	110 100 000   -> 	640
+FULL PERMISSION -> 777
+STARTS WITH (FILE)      -> 666
+STARTS WITH (DIRECTORY) -> 777
+
+Examples with directories 
+rwx r-x --x MASK (026) -> 111 101 001 -> 751
+
+666			777	
+022			026
+-> 644			-> 751
+---------------------------------------------------------
+
+
+Show permissions of specifiv file
+	terminal --> ls -al myfile1
+
+	# result: -rw-r--r-- 1 root root 13 Nov 11 16:13 myfile1
+
+	For "rw-r--r--", the octa code is 644
+
+
+When we create file or directory default permissions are set. We can see the default permissions with command 'umask'.
+
+Show default permissions:
+	terminal --> umask
+	
+	# result: rw- r-- r-- mask (022) --> binary: 110 100 110 --> octa: 644
+
+Set the default permissions with umask
+	terminal --> umask 026
+
+Show default permission after modification
+	terminal --> umask
+
+	# result: rw- r-- --- mask (026) --> binary: 110 100 000 --> octa: 640
+
+
+
+How umask works:
+It is specified as a 3-digit octal (base-8) number (e.g., 026), where each digit corresponds to permissions for owner (user), group, and others, respectively.
+Default base permissions (before umask):
+Files: 666 (rw-rw-rw-, no execute bit).
+Directories: 777 (rwxrwxrwx, full access including execute).
+
+To calculate resulting permissions: result = default - umask (subtraction per octal digit; no borrowing needed since umask bits are only where defaults allow).
+This is equivalent to a bitwise AND operation: result = default & ~umask (complement of umask).
+Umask is set via the umask command (temporary) or in shell profiles like ~/.bashrc (persistent). Common defaults: 022 (results in 644 for files) or 002 (results in 664 for files).
+
+
+Applying to Default File Permissions (666)
+------------------------------------------
+Default octal: 666 (rw-rw-rw-).
+Subtract umask: 666 - 026 = 640.
+Owner: 6 - 0 = 6 (rw-).
+Group: 6 - 2 = 4 (r--).
+Others: 6 - 6 = 0 (---).
+
+Resulting binary (110 100 000):
+
+
+Applying to Default Directory Permissions (777)
+-----------------------------------------------
+Default: 777 (rwxrwxrwx).
+Subtract: 777 - 026 = 751.
+Owner: 7 - 0 = 7 (rwx).
+Group: 7 - 2 = 5 (r-x).
+Others: 7 - 6 = 1 (---x, execute only).
+
+Result: rwxr-x--x (octal 751). The execute bit for others is retained since umask didn't mask it.
+
+
+
+Umask 	File Result	File 		Dir Result 	Dir 		Use Case
+(Octal)	(Octal)		Permissions	(Octal)		Permissions
+---------------------------------------------------------------------------------
+022	644		rw-r--r--	755		rwxr-xr-x	Standard (group/others: read-only)
+002	664		rw-rw-r--	775		rwxrwxr-x	Collaborative (group: full read/write)
+026	640		rw-r-----	751		rwxr-x--x	Secure group access (others: no read)
+027	650		rw-r-x---	750		rwxr-x---	Even stricter (others: execute only)
+
+
+
+
 ==================
 Section 6 27 Chmod
 ==================
+
+How to change existing permission, default owner and the default group settings for a file or a directory?
+
+The command that can change permissions is "chmod".
+
+Example: chmod <options> <mode> <file>
+
+Show permissions for specific file
+	terminal --> ls -la myfile2
+
+	# result: -rw-r--r-- 1 root root 0 Nov 11 15:21 myfile2
+
+
+Permissions	Binary	Octal	Description
+- - -		000	0	No permissions
+- - x		001	1	Execute-only permission
+- w -		010	2	Write-only permission
+- w x		011	3	Write and execute permission
+r - - 		100	4	Read-only permission
+r - x 		101	5	Read and execute permission
+r w -		110	6	Read and write permission
+r w x		111	7	Read, write and execute permission
+
+
+rw- r-- r-- --> binary: 110 100 100 --> octal: 644
+
+
+Change the permission for the file
+	terminal --> chmod 760 myfile2
+
+Confirm the changed permissions
+	terminal --> ls -la myfile2
+
+	# result: -rwxrw---- 1 root root 0 Nov 11 15:21 myfile2
+
+rwx rw- --- --> binary: 111 110 000 --> octal: 760
+
+
+Example short syntax for chmode:
+--------------------------------
+	terminal --> chmod ugoa ... +-= rwxXstugo
+
+s --> set SUID or SGID on execution
+t --> set sticky bit
+u --> manage owner's permission
+g --> manage group's permission
+o --> manage other's permission
+
+
+Example 1:
+----------
+Change the mode of myfile2 - give read writes for others
+	terminal --> chmod o+r myfile2
+
+Verify the permission modification:
+	terminal --> ls -la myfile2
+
+	# result: -rwxrw-r-- 1 root root 0 Nov 11 15:21 myfile2
+
+rwx rw- r-- --> binary: 111 110 100 --> octal: 764
+
+
+
+Example 2:
+----------
+Change the mode of myfile2 - remove execute writes for owner
+	terminal --> chmod u-x myfile2
+
+Verify the permission modification:
+	terminal --> ls -la myfile2
+
+	# result: -rw-rw-r-- 1 root root 0 Nov 11 15:21 myfile2
+
+rw- rw- r-- --> binary: 110 110 100 --> octal: 664
+
+
+
+
+
