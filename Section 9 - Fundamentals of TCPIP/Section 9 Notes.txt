@@ -11,9 +11,55 @@ Section 9 42 Networks Talking to Router in Middle
 Section 9 37 What is network protocol and what it does
 ======================================================
 
+Network architecture and protocols
+----------------------------------
+
+Working Node <------------------------ Network ------------------------> Mainframe Node
+					  |
+					  |
+					  |
+					  V
+					Server 
+					 Node
+
+
+What Network Protocol does?
+---------------------------
+- Maintaining sessions state
+- Identifying nodes through addressing
+- Controlling floe
+- Guardening the order of transmitted data
+- Detecting and correcting errors
+- Formatting and encoding data
+
+
+
+
 ===================================
 Section 9 38 Layers of TCP/IP Model
 ===================================
+
+TCP - transmission transport protocol
+IP - internet protocol
+
+
+Example Protocols		Internet Protocol Suite		External Connections
+------------------------------------------------------------------------------------
+HTTP, SMTP, DNS	-------------->	Application Layer--------------> User Application	
+					^
+					|
+					v
+TCP, UDP	-------------->	Transport Layer
+					^
+					|
+					v
+IPv4, IPv6	-------------->	Internet Layer
+					^
+					|
+					v
+Ethernet, PPP	-------------->	Link Layer       --------------> Pysical Network
+
+
 
 =======================================================
 Section 9 39 How emails sent and received over internet
@@ -23,10 +69,105 @@ Section 9 39 How emails sent and received over internet
 Section 9 40 PDU Explained
 ==========================
 
+PDU - Protocol Data Unit
+									
+									-----------------
+									|Application	|
+									|	Payload	|  Layer 4
+									|		|  Application Layer			
+									<--------------->
+										PDU
+						-----------------------------------------
+						|Source         Dest	|  TCP Payload	|
+						|Port		Port	|		|  Layer 3
+						|-----------------------|		|  Session Layer
+						|	TCP Header	|		|
+						<--------------------------------------->
+								PDU
+			-----------------------------------------------------------------
+			|Source     Destination	|					|
+			|ddress    Address	|		IP Payload		|  Layer 2
+			|-----------------------|					|  Internet Layer
+			| 	IP Header	|					|
+			<--------------------------------------------------------------->
+							PDU
+-----------------------------------------------------------------------------------------------------------------
+|Source     Destination	|								|			|
+|Address    Address	|		Application Payload				|			|  Layer 1
+|----------------------	|								|	Footer		|  Link Layer
+|Ethernet Header	|								|			|
+<--------------------------------------------------------------------------------------------------------------->
+						Protocol Data Unit (PDU)
+
+
 ======================================================
 Section 9 41 Basic Use of Switch and Data Transmission
 ======================================================
 
+PC1 <----------------------------> Switch <----------------------------> PC2
+192.168.0.101			From 192.168.101        		102.168.0.106	
+				to 192.168.0.108
+				      ^
+				      |
+				      |
+				      |
+				      |
+				      |
+				      V
+				    Server
+				192.168.0.108
+
+
+What it takes to send data between PC and Server:
+-------------------------------------------------
+Step 1: The operating system network stack enacapsulate the application and transport layer data and builds an IP packet with the sourse address 192.168.0.101
+Step 2: Encapsulate IP data as an Ethernet frame
+Step 3: ARP (address resolution protocol) response - asks all nodes for the MAC address of the destination system
+Step 4: Switch forewards the frame to the destination
+
+
+
+
 =================================================
 Section 9 42 Networks Talking to Router in Middle
 =================================================
+
+-----------------------------------------		   	-----------------------------------------
+PC1					|		   	|			PC3
+192.168.0.155 <------------------	|		   	|	-------------->	200.0.1.10
+				|	|		   	|	|
+				|	|		   	|	|
+				|	|		   	|	|
+				|	|			|	|
+PC2				v	|		       	|	v
+192.168.0.101 <--------------> Switch 1 <------>  Router  <-----> Switch2 ------------>	PC4
+				^	|		   	|	^		200.0.1.45
+				|	|		   	|	|
+				|	|		   	|	|
+				|	|		   	|	|
+PC3				|	|		   	|	|
+192.168.0.120 <------------------	|		   	|	-------------->	PC5
+		Network 1		|		   	|  Network 2		200.0.1.100
+-----------------------------------------			------------------------------------------
+
+Network 1 on the left with 192.168.0.x IPs connected via Switch 1, and Network 2 on the right with 200.0.1.x IPs connected via Switch 2, with a router bridging them). Then I'll provide a corrected version.
+
+Switches work at Layer 2 of the OSI model (Data Link layer) and use MAC addresses to forward Ethernet frames within the same local network (e.g., between PC1, PC2, and PC3 in Network 1 via Switch 1)
+
+Routers operate at Layer 3 (Network layer) and use IP addresses to route packets between different networks (e.g., from PC1 in Network 1 to PC4 in Network 2).
+
+1. Local Delivery Within a Network (Switch Role):
+If traffic stays in the same subnet (e.g., PC1 to PC3, both 192.168.0.x):
+- PC1 sends an Ethernet frame with PC3's MAC as the destination (learned via ARP).
+- Switch 1 checks its MAC address table: "PC3's MAC is on port 3" → forwards the frame out that port. No IP routing needed.
+- This is fast and doesn't leave the local network.
+
+2. Inter-Network Delivery (Router Role):
+If traffic crosses subnets (e.g., PC1 to PC4):
+- PC1 sees PC4's IP (200.0.1.45) is not local, so it sends the IP packet to its default gateway (the router's 192.168.0.1 interface, learned via DHCP or config). The frame uses the router's MAC as destination.
+- Switch 1 forwards to the router based on the router's MAC (from its table).
+- Router receives the packet, strips the Layer 2 frame, checks the destination IP (200.0.1.45) in its routing table (e.g., "send 200.0.1.0/24 via interface to Switch 2").
+- Router re-encapsulates the IP packet in a new Ethernet frame (now using Switch 2's MAC as next-hop destination).
+- Switch 2 receives it and forwards to PC4 based on PC4's MAC (learned via ARP on Network 2).
+
+
