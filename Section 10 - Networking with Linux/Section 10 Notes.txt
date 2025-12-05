@@ -7,7 +7,40 @@ Section 10 44 Networking with Linux
 Section 10 43 Trcrt Command
 ===========================
 
+ping - examinate target IP address - send special network packed called ICMP ECHO_REQUEST. The target will response if not secured to ignore this calls.
+
+Example:
+	terminal --> ping google.com
+
+
+
+program: traceroute - present the route to the destination address
+
+Example:
+	terminal --> sudo traceroute -T google.com
+	terminal --> sudo traceroute -I google.com
+
+
+
 ===================================
 Section 10 44 Networking with Linux
 ===================================
+
+List network interfaces
+	terminal --> ip a
+
+List network statistics
+	terminal --> netstat
+	terminal --> netstat -ie
+	terminal --> netstat -r		Show kurnal network routing table
+
+
+program: ftp - File Transfer Protocol. Used before between servers for file operations. Example: ftp://address. Not secure.
+
+program: wget - download files from internet.
+
+Example:
+	terminal --> wget https://address/file
+
+
 
